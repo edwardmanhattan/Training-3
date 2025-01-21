@@ -1,0 +1,12 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+input[type='text'],
+input[type='password'] {
+	@apply mb-1 block w-full rounded border border-stone-300 p-2;
+}
+
+button {
+	@apply w-full rounded border p-2;
+}
