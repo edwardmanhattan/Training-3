@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
 	const movie_id = params.id;
 
 	try {
-		const result = await fetch(env.BASE_URL + `/movie/${movie_id}?language=id-ID`, {
+		const result = await fetch(env.BASE_URL + `/movie/${movie_id}?language=en-US`, {
 			method: 'GET',
 			headers: {
 				accept: 'application/json',

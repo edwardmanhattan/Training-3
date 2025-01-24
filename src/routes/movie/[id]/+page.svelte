@@ -35,6 +35,8 @@
 	});
 
 	const __seats = $state(_seats);
+
+	$inspect(data);
 </script>
 
 <div class="gridco flex h-screen w-screen">
