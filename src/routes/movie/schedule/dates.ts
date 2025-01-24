@@ -2,7 +2,7 @@
 const dayNames = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
 
 // Indonesian month names
-const monthNames = [
+export const monthNames = [
 	'Januari',
 	'Februari',
 	'Maret',
@@ -17,18 +17,55 @@ const monthNames = [
 	'Desember'
 ];
 
+export const getCurrentDate = () => {
+	const dateInJakarta = new Date().toLocaleString('id-ID', {
+		timeZone: 'Asia/Jakarta',
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric'
+	});
+
+	console.log(dateInJakarta);
+
+	const [day, month, year] = dateInJakarta.split('/');
+
+	return {
+		date: parseInt(day, 10),
+		month: parseInt(month, 10), // Capitalize the first letter
+		year: parseInt(year, 10)
+	};
+};
+
+const getFormattedDateInJakarta = (date) => {
+	const options = { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit' };
+	const dateInJakarta = date.toLocaleDateString('en-CA', options); // 'en-CA' gives ISO format YYYY-MM-DD
+
+	return dateInJakarta;
+};
+
 export function getDatesByDayIndonesian(year, month) {
+	// Indonesian day names
+	const dayNames = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+
+	// Helper function to create the date object
+	const createDateObject = (date) => {
+		const day = String(date.getDate()).padStart(2, '0'); // Add leading zero if needed
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // Add leading zero, month is 0-based
+		const year = date.getFullYear();
+		const fullDate = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+
+		return {
+			day: parseInt(day),
+			month: parseInt(month),
+			year,
+			fullDate
+		};
+	};
+
 	// Initialize result as a Map
 	const dates = new Map();
 	dayNames.forEach((day) => {
 		dates.set(day, []);
-	});
-
-	// Helper function to create the date object
-	const createDateObject = (date) => ({
-		day: date.getDate(),
-		month: monthNames[date.getMonth()],
-		year: date.getFullYear()
 	});
 
 	// Get the number of days in the given month

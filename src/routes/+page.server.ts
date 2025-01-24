@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {
-		const result = await fetch(env.BASE_URL + `/trending/movie/day?language=en-US`, {
+		const result = await fetch(env.BASE_URL + `/trending/movie/week?language=en-US`, {
 			method: 'GET',
 			headers: {
 				accept: 'application/json',
