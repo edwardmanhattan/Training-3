@@ -1,27 +1,23 @@
-export function getDatesByDayIndonesian() {
-	const today = new Date();
-	const year = today.getFullYear();
-	const month = today.getMonth(); // 0-based index
+// Indonesian day names
+const dayNames = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
 
-	// Indonesian day names
-	const dayNames = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+// Indonesian month names
+const monthNames = [
+	'Januari',
+	'Februari',
+	'Maret',
+	'April',
+	'Mei',
+	'Juni',
+	'Juli',
+	'Agustus',
+	'September',
+	'Oktober',
+	'November',
+	'Desember'
+];
 
-	// Indonesian month names
-	const monthNames = [
-		'Januari',
-		'Februari',
-		'Maret',
-		'April',
-		'Mei',
-		'Juni',
-		'Juli',
-		'Agustus',
-		'September',
-		'Oktober',
-		'November',
-		'Desember'
-	];
-
+export function getDatesByDayIndonesian(year, month) {
 	// Initialize result as a Map
 	const dates = new Map();
 	dayNames.forEach((day) => {
@@ -35,7 +31,7 @@ export function getDatesByDayIndonesian() {
 		year: date.getFullYear()
 	});
 
-	// Get the number of days in the current month
+	// Get the number of days in the given month
 	const daysInMonth = new Date(year, month + 1, 0).getDate();
 
 	// Determine the first day of the month
