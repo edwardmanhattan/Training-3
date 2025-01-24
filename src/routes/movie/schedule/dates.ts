@@ -6,17 +6,34 @@ export function getDatesByDayIndonesian() {
 	// Indonesian day names
 	const dayNames = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
 
+	// Indonesian month names
+	const monthNames = [
+		'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	];
+
 	// Initialize result as a Map
 	const dates = new Map();
 	dayNames.forEach((day) => {
 		dates.set(day, []);
 	});
 
-	// Format date in Indonesian style
-	const formatDateIndonesian = (date) => {
-		const options = { day: 'numeric', month: 'long', year: 'numeric' };
-		return date.toLocaleDateString('id-ID', options);
-	};
+	// Helper function to create the date object
+	const createDateObject = (date) => ({
+		day: date.getDate(),
+		month: monthNames[date.getMonth()],
+		year: date.getFullYear()
+	});
 
 	// Get the number of days in the current month
 	const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -31,7 +48,7 @@ export function getDatesByDayIndonesian() {
 		for (let i = prevMonthDays; i > 0; i--) {
 			const date = new Date(year, month - 1, prevMonthLastDay - i + 1);
 			const dayOfWeek = date.getDay();
-			dates.get(dayNames[dayOfWeek]).push(formatDateIndonesian(date));
+			dates.get(dayNames[dayOfWeek]).push(createDateObject(date));
 		}
 	}
 
@@ -39,7 +56,7 @@ export function getDatesByDayIndonesian() {
 	for (let day = 1; day <= daysInMonth; day++) {
 		const date = new Date(year, month, day);
 		const dayOfWeek = date.getDay();
-		dates.get(dayNames[dayOfWeek]).push(formatDateIndonesian(date));
+		dates.get(dayNames[dayOfWeek]).push(createDateObject(date));
 	}
 
 	// Determine the trailing dates from the next month
@@ -48,7 +65,7 @@ export function getDatesByDayIndonesian() {
 	for (let i = 1; i <= nextMonthDays; i++) {
 		const date = new Date(year, month + 1, i);
 		const dayOfWeek = date.getDay();
-		dates.get(dayNames[dayOfWeek]).push(formatDateIndonesian(date));
+		dates.get(dayNames[dayOfWeek]).push(createDateObject(date));
 	}
 
 	return dates;
